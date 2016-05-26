@@ -48,9 +48,9 @@ var DialogManager = function () {
     this.init = function () {
         var totalY = 0;
         // ウィンドウ作成
-        _window = new Window("dialog", "HTML初期構築自動化 ver2.1", _getPosition({x:200, y:200, w:390, h:850}));
+        _window = new Window("dialog", "HTML初期構築自動化 ver2.1", _getPosition({x:200, y:200, w:390, h:320}));
         // 画像ファイル設定
-        totalY = 20;
+        totalY = 0;
         _imageCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:320, h:40}), "画像ファイルを書き出す");
         _imageCheckboxExport.value = true;
         imagePanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:130}), "画像ファイル設定");
@@ -67,7 +67,7 @@ var DialogManager = function () {
         _imageDropdownlistJpgCompress = imagePanel.add("dropdownlist", _getPosition({x:130, y:80, w:200, h:20}), ["100 （最高画質）", "90", "80 （高画質）", "70", "60 （やや高画質）", "50", "40", "30 （中画質）", "20", "10 （低画質）"]);
         _imageDropdownlistJpgCompress.selection = 2;
         // HTMLファイル設定
-        totalY = 200;
+        totalY = 0;
         _htmlCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:350, h:40}), "HTMLファイルを書き出す");
         _htmlCheckboxExport.value = true;
         htmlPanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:160}), "HTMLファイル設定");
@@ -81,7 +81,7 @@ var DialogManager = function () {
         htmlPanel.add("statictext", _getPosition({x:20, y:110, w:100, h:20}), "ページタイトル :").justify = "right";
         _htmlEdittextTitle = htmlPanel.add("edittext", _getPosition({x:130, y:110, w:200, h:20}), "無題ドキュメント");
         // CSSファイル設定
-        totalY = 410;
+        totalY = 0;
         _cssCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:350, h:40}), "CSSファイルを書き出す");
         _cssCheckboxExport.value = true;
         _cssPanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:130}), "CSSファイル設定");
@@ -93,7 +93,7 @@ var DialogManager = function () {
         _cssCheckboxLayout = _cssPanel.add("checkbox", _getPosition({x:130, y:80, w:200, h:20}), "absoluteで配置情報を書き込む");
         _cssCheckboxLayout.value = true;
         // その他オプション
-        totalY = 600;
+        totalY = 0;
         _window.add("statictext", _getPosition({x:20, y:totalY, w:90, h:20}), "背景色 :").justify = "right";
         _otherEdittextColor = _window.add("edittext", _getPosition({x:120, y:totalY, w:200, h:20}), "#ffffff");
         _window.add("statictext", _getPosition({x:20, y:totalY + 30, w:90, h:20}), "パス記述方式 :").justify = "right";
@@ -105,7 +105,7 @@ var DialogManager = function () {
         _otherDropdownlistCharaset = _window.add("dropdownlist", _getPosition({x:120, y:totalY + 60, w:200, h:20}), ["UTF-8", "Shift_JIS"]);
         _otherDropdownlistCharaset.selection = 0;
         // OKボタン
-        totalY = 720;
+        totalY = 240;
         _okBtn = _window.add("button", _getPosition({x:90, y:totalY, w:100, h:30}), "OK", { name:"ok" });
         _okBtn.onClick = function () {
             _close({flg:true});
@@ -876,6 +876,13 @@ var InfoManager = function () {
                     }
                 } catch(e) {
                 }
+
+		        try {
+		          var lineHeight = parseInt(layer.textItem.leading);
+		        } 
+		        catch (e) {
+		          var lineHeight = 0;
+		        };		                     
                 try {
                     if (layer.textItem.justification) {
                         align = layer.textItem.justification;
@@ -903,16 +910,17 @@ var InfoManager = function () {
                 totalInfoObj = {
                     type:TYPE_KEY_TEXT,
                     name:layerName,
-                    top:layoutInfoObj.top - top,
+                    top:layoutInfoObj.top - top - (lineHeight-parseInt(size))/2,
                     left:layoutInfoObj.left - left,
-                    width:layoutInfoObj.width,
-                    height:layoutInfoObj.height,
+                    width: 'auto',
+                    height:lineHeight,
                     file:null,
                     text:{
                         contents:layer.textItem.contents,
                         size:size,
                         align:align,
                         color:color,
+                        lineHeight:lineHeight,
                         bold:bold,
                         italic:italic
                     },
@@ -1079,6 +1087,7 @@ var HtmlExporter = function () {
             case HTML_KEY_HTML5:
                 _htmlTxt += INDENT_VALUE + "<head>\n";
                 _htmlTxt += INDENT_VALUE + INDENT_VALUE + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=" + dialogManager.getEncodeInfo().charset + "\">\n";
+                _htmlTxt += INDENT_VALUE + INDENT_VALUE + "<meta name=\"viewport\" content=\"width="+activeDocument.width.value+", user-scalable=yes, maximum-scale=3.0, minimum-scale=0\">\n";
                 break;
             case HTML_KEY_JADE:
                 _htmlTxt += INDENT_VALUE + "head\n";
@@ -1176,7 +1185,8 @@ var HtmlExporter = function () {
                             text += tab + "<img id=\"" + arr[i].name + "\" alt=\"" + arr[i].alt + "\" src=\"" + getPathInfoImagesUtil().folderPathHtml + arr[i].name + getExtFromFileTypeUtil({file:arr[i].file}) + "\" width=\"" + arr[i].width + "\" height=\"" + arr[i].height + "\" />\n";
                             break;
                         case HTML_KEY_HTML5:
-                            text += tab + "<img id=\"" + arr[i].name + "\" alt=\"" + arr[i].alt + "\" src=\"" + getPathInfoImagesUtil().folderPathHtml + arr[i].name + getExtFromFileTypeUtil({file:arr[i].file}) + "\" width=\"" + arr[i].width + "\" height=\"" + arr[i].height + "\">\n";
+                        	var w = arr[i].width < activeDocument.width.value ? arr[i].width : "100%";
+                            text += tab + "<img id=\"" + arr[i].name + "\" class=\""+arr[i].name.split('_').shift()+"\" alt=\"" + arr[i].alt + "\" src=\"" + getPathInfoImagesUtil().folderPathHtml + arr[i].name + getExtFromFileTypeUtil({file:arr[i].file}) + "\" width=\"" + w + "\" height=\"" + arr[i].height + "\">\n";
                             break;
                         case HTML_KEY_JADE:
                             text += tab + "img#" + arr[i].name + "(alt=\"" + arr[i].alt + "\", src=\"" + getPathInfoImagesUtil().folderPathHtml + arr[i].name + getExtFromFileTypeUtil({file:arr[i].file}) + "\", width=\"" + arr[i].width + "\", height=\"" + arr[i].height + "\")\n";
@@ -1271,6 +1281,8 @@ var CssExporter = function () {
         }
         _cssTxt += "}\n";
         _cssTxt += "\n";
+        _cssTxt += "[id=hide] {display: none;}\n";
+        _cssTxt += "img.bg {z-index:-1}\n";
         if (dialogManager.getIsAbsolute()) {
             _cssTxt += "p {\n";
             _cssTxt += "\tpadding: 0;\n";
@@ -1293,6 +1305,7 @@ var CssExporter = function () {
         var length = arr.length;
         for (var i = 0; i < length; i++) {
             var item = arr[i];
+            var index01 = (99 - i) * 100 + 99;
             // CSSテキスト作成（可変部分）
             if (item.type == TYPE_KEY_NORMAL || item.type == TYPE_KEY_TEXT || item.type == TYPE_KEY_GROUP) {
                 _cssTxt += "#" + item.name + " {\n";
@@ -1303,6 +1316,7 @@ var CssExporter = function () {
                     var top = (item.top == 0) ? 0 : item.top + "px";
                     _cssTxt += "\ttop: " + top + ";\n";
                     _cssTxt += "\tleft: " + left + ";\n";
+                    _cssTxt += "\tz-index: " + index01 +";\n";
                 }
                 // ボックス
                 if (item.type == TYPE_KEY_GROUP) {
@@ -1315,6 +1329,7 @@ var CssExporter = function () {
                     var length2 = arr2.length;
                     for (var j = 0; j < length2; j++) {
                         var item2 = arr2[j];
+                        var index02 = index01 - j;
                         if (item2.type == TYPE_KEY_BG) {
                             _bgTxt += "\tbackground-repeat: no-repeat;\n";
                             _bgTxt += "\tbackground-image: url(\"" + getPathInfoImagesUtil().folderPathCss + item2.name + getExtFromFileTypeUtil({file:item2.file}) + "\");\n";
@@ -1324,14 +1339,15 @@ var CssExporter = function () {
                                 _bgTxt += "\tbackground-position: " + left + " " + top + ";" + "\n";
                             }
                         }
+                        _cssTxt += "\tz-index: " + index02 +";\n";
                     }
                     _cssTxt += _bgTxt;
                 }
                 // テキスト
                 if (item.type == TYPE_KEY_TEXT) {
                     // サイズ
-                    _cssTxt += "\twidth: " + item.width + "px;\n";
-                    _cssTxt += "\theight: " + item.height + "px;\n";
+                    if(item.width>0)_cssTxt += "\twidth: " + item.width + "px;\n";
+                    if(item.height>0)_cssTxt += "\theight: " + item.height + "px;\n";
                     // フォント情報
                     var fontSize = item.text.size;
                     _cssTxt += "\tfont-size: " + fontSize.replace(/ /, "") + ";\n";
@@ -1346,6 +1362,7 @@ var CssExporter = function () {
                     }
                     if (align) _cssTxt += "\ttext-align: " + align + ";\n";
                     if (item.text.bold)_cssTxt += "\tfont-weight: bold;\n";
+                    if (item.text.lineHeight)_cssTxt += "\tline-height: " + item.text.lineHeight + "px;\n";
                     if (item.text.italic)_cssTxt += "\tfont-style: italic;\n";
                     _cssTxt += "\tcolor: " + item.text.color + ";\n";
                 }
