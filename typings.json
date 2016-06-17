@@ -1,0 +1,7 @@
+{
+  "name": "psdexporter-jsx",
+  "dependencies": {},
+  "globalDependencies": {
+    "jsx": "file:jsx"
+  }
+}

@@ -3,7 +3,7 @@
 //
 
 //
-// ----- ダイアログ
+// ----- 对话框
 //
 var DialogManager = function () {
 
@@ -44,19 +44,19 @@ var DialogManager = function () {
     var _rootPathFromCss = "";
     var _isRelativePath = true;
 
-    // 初期化
+    // 初始化
     this.init = function () {
         var totalY = 0;
-        // ウィンドウ作成
+        // 窗口创建
         _window = new Window("dialog", "HTML初期構築自動化 ver2.1", _getPosition({x:200, y:200, w:390, h:320}));
-        // 画像ファイル設定
+        // 图像文件设置
         totalY = 0;
-        _imageCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:320, h:40}), "画像ファイルを書き出す");
+        _imageCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:320, h:40}), "图像文件输出");
         _imageCheckboxExport.value = true;
-        imagePanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:130}), "画像ファイル設定");
-        imagePanel.add("statictext", _getPosition({x:20, y:20, w:100, h:20}), "ディレクトリ :").justify = "right";
+        imagePanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:130}), "图像文件设置");
+        imagePanel.add("statictext", _getPosition({x:20, y:20, w:100, h:20}), "目录 :").justify = "right";
         _imageEdittextDirectory = imagePanel.add("edittext", _getPosition({x:130, y:20, w:200, h:20}), "images");
-        imagePanel.add("statictext", _getPosition({x:20, y:50, w:100, h:20}), "ファイル形式 :").justify = "right";
+        imagePanel.add("statictext", _getPosition({x:20, y:50, w:100, h:20}), "文件格式 :").justify = "right";
         _imageRadiobuttonPng = imagePanel.add("radiobutton", _getPosition({x:130, y:50, w:50, h:20}), "PNG");
         _imageRadiobuttonPng.value = true;
         _imageRadiobuttonJpg = imagePanel.add("radiobutton", _getPosition({x:190, y:50, w:50, h:20}), "JPEG");
@@ -66,107 +66,107 @@ var DialogManager = function () {
         imagePanel.add("statictext", _getPosition({x:20, y:80, w:100, h:20}), "JPEG画質 :").justify = "right";
         _imageDropdownlistJpgCompress = imagePanel.add("dropdownlist", _getPosition({x:130, y:80, w:200, h:20}), ["100 （最高画質）", "90", "80 （高画質）", "70", "60 （やや高画質）", "50", "40", "30 （中画質）", "20", "10 （低画質）"]);
         _imageDropdownlistJpgCompress.selection = 2;
-        // HTMLファイル設定
+        // HTML文件设置
         totalY = 0;
-        _htmlCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:350, h:40}), "HTMLファイルを書き出す");
+        _htmlCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:350, h:40}), "HTML文件输出");
         _htmlCheckboxExport.value = true;
-        htmlPanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:160}), "HTMLファイル設定");
-        htmlPanel.add("statictext", _getPosition({x:20, y:20, w:100, h:20}), "ディレクトリ :").justify = "right";
+        htmlPanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:160}), "HTML文件设置");
+        htmlPanel.add("statictext", _getPosition({x:20, y:20, w:100, h:20}), "目录 :").justify = "right";
         _htmlEdittextDirectory = htmlPanel.add("edittext", _getPosition({x:130, y:20, w:200, h:20}), "");
-        htmlPanel.add("statictext", _getPosition({x:20, y:50, w:100, h:20}), "ファイル名 :").justify = "right";
+        htmlPanel.add("statictext", _getPosition({x:20, y:50, w:100, h:20}), "文件名 :").justify = "right";
         _htmlEdittextName = htmlPanel.add("edittext", _getPosition({x:130, y:50, w:200, h:20}), "index.html");
-        htmlPanel.add("statictext", _getPosition({x:20, y:80, w:100, h:20}), "ドキュメント形式 :").justify = "right";
+        htmlPanel.add("statictext", _getPosition({x:20, y:80, w:100, h:20}), "文档形式 :").justify = "right";
         _htmlDropdownlistDoctype = htmlPanel.add("dropdownlist", _getPosition({x:130, y:80, w:200, h:20}), ["HTML5", "Jade", "XHTML 1.0 Transitional", "HTML 4.01 Transitional"]);
         _htmlDropdownlistDoctype.selection = 0;
-        htmlPanel.add("statictext", _getPosition({x:20, y:110, w:100, h:20}), "ページタイトル :").justify = "right";
-        _htmlEdittextTitle = htmlPanel.add("edittext", _getPosition({x:130, y:110, w:200, h:20}), "無題ドキュメント");
-        // CSSファイル設定
+        htmlPanel.add("statictext", _getPosition({x:20, y:110, w:100, h:20}), "页面标题 :").justify = "right";
+        _htmlEdittextTitle = htmlPanel.add("edittext", _getPosition({x:130, y:110, w:200, h:20}), "Photoshop文档");
+        // CSS文件设置
         totalY = 0;
-        _cssCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:350, h:40}), "CSSファイルを書き出す");
+        _cssCheckboxExport = _window.add("checkbox", _getPosition({x:20, y:totalY, w:350, h:40}), "CSS文件输出");
         _cssCheckboxExport.value = true;
-        _cssPanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:130}), "CSSファイル設定");
-        _cssPanel.add("statictext", _getPosition({x:20, y:20, w:100, h:20}), "ディレクトリ :").justify = "right";
+        _cssPanel = _window.add("panel", _getPosition({x:20, y:totalY + 40, w:350, h:130}), "CSS文件设置");
+        _cssPanel.add("statictext", _getPosition({x:20, y:20, w:100, h:20}), "目录 :").justify = "right";
         _cssEdittextDirectory = _cssPanel.add("edittext", _getPosition({x:130, y:20, w:200, h:20}), "css");
-        _cssPanel.add("statictext", _getPosition({x:20, y:50, w:100, h:20}), "ファイル名 :").justify = "right";
+        _cssPanel.add("statictext", _getPosition({x:20, y:50, w:100, h:20}), "文件名 :").justify = "right";
         _cssEdittextName = _cssPanel.add("edittext", _getPosition({x:130, y:50, w:200, h:20}), "index.css");
-        _cssPanel.add("statictext", _getPosition({x:20, y:80, w:100, h:20}), "レイアウト :").justify = "right";
-        _cssCheckboxLayout = _cssPanel.add("checkbox", _getPosition({x:130, y:80, w:200, h:20}), "absoluteで配置情報を書き込む");
+        _cssPanel.add("statictext", _getPosition({x:20, y:80, w:100, h:20}), "格式 :").justify = "right";
+        _cssCheckboxLayout = _cssPanel.add("checkbox", _getPosition({x:130, y:80, w:200, h:20}), "absolute写入信息");
         _cssCheckboxLayout.value = true;
-        // その他オプション
+        // 其他选项
         totalY = 0;
         _window.add("statictext", _getPosition({x:20, y:totalY, w:90, h:20}), "背景色 :").justify = "right";
         _otherEdittextColor = _window.add("edittext", _getPosition({x:120, y:totalY, w:200, h:20}), "#ffffff");
-        _window.add("statictext", _getPosition({x:20, y:totalY + 30, w:90, h:20}), "パス記述方式 :").justify = "right";
-        _otherRadiobuttonRelative = _window.add("radiobutton", _getPosition({x:120, y:totalY + 30, w:80, h:20}), "相対パス");
+        _window.add("statictext", _getPosition({x:20, y:totalY + 30, w:90, h:20}), "定位方式 :").justify = "right";
+        _otherRadiobuttonRelative = _window.add("radiobutton", _getPosition({x:120, y:totalY + 30, w:80, h:20}), "相对定位");
         _otherRadiobuttonRelative.value = true;
-        _otherRadiobuttonAbsolute = _window.add("radiobutton", _getPosition({x:200, y:totalY + 30, w:80, h:20}), "絶対パス");
+        _otherRadiobuttonAbsolute = _window.add("radiobutton", _getPosition({x:200, y:totalY + 30, w:80, h:20}), "绝对定位");
         _otherRadiobuttonAbsolute.value = false;
-        _window.add("statictext", _getPosition({x:20, y:totalY + 60, w:90, h:20}), "文字コード :").justify = "right";
+        _window.add("statictext", _getPosition({x:20, y:totalY + 60, w:90, h:20}), "文字编码 :").justify = "right";
         _otherDropdownlistCharaset = _window.add("dropdownlist", _getPosition({x:120, y:totalY + 60, w:200, h:20}), ["UTF-8", "Shift_JIS"]);
         _otherDropdownlistCharaset.selection = 0;
-        // OKボタン
+        // OK按钮
         totalY = 240;
         _okBtn = _window.add("button", _getPosition({x:90, y:totalY, w:100, h:30}), "OK", { name:"ok" });
         _okBtn.onClick = function () {
             _close({flg:true});
         };
-        // CANCELボタン
+        // CANCEL按钮
         _cancelBtn = _window.add("button", _getPosition({x:200, y:totalY, w:100, h:30}), "Cancel", { name:"cancel" });
         _cancelBtn.onClick = function () {
             _close({flg:false});
         };
-        // コピーライト
+        // 版权
         _window.add("statictext", _getPosition({x:20, y:totalY + 50, w:350, h:20}), "Developed : @knockknockjp").justify = "right";
         _window.add("statictext", _getPosition({x:20, y:totalY + 70, w:350, h:20}), "URL : http://www.knockknock.jp").justify = "right";
         _window.add("statictext", _getPosition({x:20, y:totalY + 90, w:350, h:20}), "e-Mail : nishida@knockknock.jp").justify = "right";
     };
 
-    // 開く
+    // 打开
     this.open = function () {
         _window.show();
     };
 
-    // 画像ファイルを書き出すか否か
+    // 图像文件输出か否か
     this.getIsExportImages = function () {
         return _isExportImages;
     };
 
-    // HTMLファイルを書き出すか否か
+    // HTML文件输出
     this.getIsExportHtml = function () {
         return _isExportHtml;
     };
 
-    // HTMLファイルを書き出すか否か
+    // HTML文件输出
     this.getIsExportCss = function () {
         return _isExportCss;
     };
 
-    // 画像ファイル格納場所
+    // 图像文件存储位置
     this.getImageFolderPath = function () {
         return _imageFolderPath;
     };
 
-    // HTMLファイル格納場所
+    // HTML文件存储位置
     this.getHtmlFolderPath = function () {
         return _htmlFolderPath;
     };
 
-    // CSSファイル格納場所
+    // CSS文件存储位置
     this.getCssFolderPath = function () {
         return _cssFolderPath;
     };
 
-    // HTMLファイル名
+    // HTML文件名
     this.getHtmlFileName = function () {
         return _htmlFileName;
     };
 
-    // CSSファイル名
+    // CSS文件名
     this.getCssFileName = function () {
         return _cssFileName;
     };
 
-    // エンコード
+    // エン编码
     this.getEncodeInfo = function () {
         return _encodeInfo;
     };
@@ -176,17 +176,17 @@ var DialogManager = function () {
         return _jpegCompressRate;
     };
 
-    // HTMLドキュメント形式
+    // HTML文档形式
     this.getHtmlDoctype = function () {
         return _htmlDoctype;
     };
 
-    // HTMLタイトル
+    // HTML标题
     this.getHtmlTitle = function () {
         return _htmlTitle;
     };
 
-    // デフォルト画像形式
+    // 默认图片格式
     this.getDefaultFileType = function () {
         return _defaultFileType;
     };
@@ -196,22 +196,22 @@ var DialogManager = function () {
         return _otherBgColor;
     };
 
-    // 絶対配置
+    // 绝对配置
     this.getIsAbsolute = function () {
         return _isAbsolute;
     };
 
-    // HTMLファイルから見たルートパス
+    // HTML文件
     this.getRootPathFromHtml = function () {
         return _rootPathFromHtml;
     };
 
-    // CSSファイルから見たルートパス
+    // CSS文件
     this.getRootPathFromCss = function () {
         return _rootPathFromCss;
     };
 
-    // 絶対パスか否か
+    // 绝对定位か否か
     this.getIsRelativePath = function () {
         return _isRelativePath;
     };
@@ -221,25 +221,25 @@ var DialogManager = function () {
         if (e.flg) {
             var str = "";
             var selection = "";
-            // 画像ファイルを書き出すか否か
+            // 图像文件输出判断
             _isExportImages = _imageCheckboxExport.value;
-            // HTMLファイルを書き出すか否か
+            // HTML文件输出判断
             _isExportHtml = _htmlCheckboxExport.value;
-            // HTMLファイルを書き出すか否か
+            // HTML文件输出判断
             _isExportCss = _cssCheckboxExport.value;
-            // 画像ファイル格納場所
+            // 图像文件存储位置
             _imageFolderPath = _setDirectoryText({str:_imageEdittextDirectory.text});
-            // HTMLファイル格納場所
+            // HTML文件存储位置
             _htmlFolderPath = _setDirectoryText({str:_htmlEdittextDirectory.text});
-            // CSSファイル格納場所
+            // CSS文件存储位置
             _cssFolderPath = _setDirectoryText({str:_cssEdittextDirectory.text});
-            // HTMLファイル名
+            // HTML文件名
             _htmlFileName = _setFileNameText({str:_htmlEdittextName.text});
-            // CSSファイル名
+            // CSS文件名
             _cssFileName = _setFileNameText({str:_cssEdittextName.text});
             // 背景カラー
             _otherBgColor = getHexColorTextUtil(_otherEdittextColor.text);
-            // エンコード
+            // エン编码
             _encodeInfo = {
                 system:"UTF8",
                 charset:"utf-8"
@@ -275,7 +275,7 @@ var DialogManager = function () {
                 case "70":
                     _jpegCompressRate = 70;
                     break;
-                case "60 （やや高画質）":
+                case "60 （次高画質）":
                     _jpegCompressRate = 60;
                     break;
                 case "50":
@@ -294,7 +294,7 @@ var DialogManager = function () {
                     _jpegCompressRate = 10;
                     break;
             }
-            // HTMLドキュメント形式
+            // HTML文档形式
             _htmlDoctype = HTML_KEY_HTML5;
             selection = String(_htmlDropdownlistDoctype.selection);
             switch (selection) {
@@ -311,9 +311,9 @@ var DialogManager = function () {
                     _htmlDoctype = HTML_KEY_HTML4;
                     break;
             }
-            // HTMLタイトル
+            // HTML标题
             _htmlTitle = _htmlEdittextTitle.text;
-            // デフォルト画像形式
+            // 默认图片格式
             _defaultFileType = FILE_KEY_PNG;
             if (_imageRadiobuttonPng.value) {
                 _defaultFileType = FILE_KEY_PNG;
@@ -322,32 +322,32 @@ var DialogManager = function () {
             } else if (_imageRadiobuttonGif.value) {
                 _defaultFileType = FILE_KEY_GIF;
             }
-            // 絶対配置
+            // 绝对配置
             _isAbsolute = _cssCheckboxLayout.value;
-            // 絶対パス相対パス
+            // 绝对定位相对定位
             _isRelativePath = true;
             if (_otherRadiobuttonAbsolute.value == true) {
                 _isRelativePath = false;
             }
-            // HTMLから見たルートディレクトリパス
+            // HTML根目录定位
             _rootPathFromHtml = _getRootPath({path:_htmlFolderPath});
-            // CSSから見たルートディレクトリパス
+            // CSS根目录定位
             _rootPathFromCss = _getRootPath({path:_cssFolderPath});
             _window.close();
-            // エラーチェックイベント
+            // 错误检验事件
             checkErrorEvent();
         } else {
             _window.close();
-            alert("取り消しました");
+            alert("已取消");
         }
     }
 
-    // アイテム位置情報取得
+    // 项目位置信息取得
     function _getPosition(e) {
         return [ e.x, e.y, e.w + e.x, e.h + e.y ];
     }
 
-    // ディレクトリテキスト作成
+    // 目录文本创建
     function _setDirectoryText(e) {
         var str = String(e.str);
         var str2 = "";
@@ -378,7 +378,7 @@ var DialogManager = function () {
         return str2;
     }
 
-    // ファイル名テキスト作成
+    // 文件名文本创建
     function _setFileNameText(e) {
         var str = String(e.str);
         var str2 = "";
@@ -399,7 +399,7 @@ var DialogManager = function () {
         return str2;
     }
 
-    // ルートへのパス取得
+    // 路径定位取得
     function _getRootPath(e) {
         if (dialogManager.getIsRelativePath()) {
             var path = e.path;
@@ -421,7 +421,7 @@ var DialogManager = function () {
 };
 
 //
-// ----- エラー管理
+// ----- 错误管理
 //
 var ErrorChecker = function () {
 
@@ -432,7 +432,7 @@ var ErrorChecker = function () {
 
     var _layerName;
 
-    // 初期化
+    // 初始化
     this.init = function () {
         _errorMsgSave = "";
         _errorMsgDuplicate = "";
@@ -441,7 +441,7 @@ var ErrorChecker = function () {
         _layerName = "";
     };
 
-    // チェック
+    // 检测
     this.check = function (e) {
         _checkSave();
         _checkDuplicate({
@@ -458,56 +458,57 @@ var ErrorChecker = function () {
         });
         var msg = "";
         if (_errorMsgSave != "" || _errorMsgDuplicate != "" || _errorMsgName != "" || _errorMsgExist != "") {
-            msg = "以下のエラーがあります。\n\n";
+            msg = "发生以下错误: \n\n";
             if (_errorMsgSave != "") msg += _errorMsgSave;
-            if (_errorMsgDuplicate != "") msg += "■レイヤー及びレイヤーセットの名称でIDに重複しているものがあります。\n\n" + _errorMsgDuplicate;
-            if (_errorMsgName != "") msg += "■レイヤー及びレイヤーセットの名称でIDに使用出来ない文字列が存在します。\n\n" + _errorMsgName;
-            if (_errorMsgExist != "") msg += "■表示範囲に要素がないレイヤー及びレイヤーセットが存在します。\n\n" + _errorMsgExist;
+            if (_errorMsgDuplicate != "") msg += "■ 图层及图层集的名称上存在重复。\n\n" + _errorMsgDuplicate;
+            if (_errorMsgName != "") msg += "■ 图层及图层组的名称上存在的双字节文字。\n\n" + _errorMsgName;
+            if (_errorMsgExist != "") msg += "■ 在显示范围内存在无像素的图层及图层组。\n\n" + _errorMsgExist;
         }
         if (msg != "") {
             alert(msg);
+            startExportEvent();
         } else {
-            // 書き出し開始イベント
+            // 开始导出
             startExportEvent();
         }
     };
 
-    // 保存チェック
+    // 保存检测
     function _checkSave() {
         if (!activeDocument || !activeDocument.path) {
-            _errorMsgSave += "■実行するには、PSDドキュメントを保存する必要があります。\n\n";
+            _errorMsgSave += "■ 必须先打开一个PSD文件。\n\n";
         }
         var fileName = String(activeDocument.fullName);
         fileName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.length);
         if (fileName.match(/[^0-9A-Za-z_.:-]+/) != null) {
-            _errorMsgSave += "■PSDドキュメントを半角英数で保存する必要があります。\n\n";
+            _errorMsgSave += "■ PSD文件名必须为半角的英文数字。\n\n";
         }
     }
 
-    // 重複チェック
+    // 重复检测
     function _checkDuplicate(e) {
         var item = e.item;
         var name = e.name;
-        // レイヤー
+        // 图层
         var length = item.artLayers.length;
         for (var i = 0; i < length; i++) {
             var artLayer = item.artLayers[ i ];
             var layerName = getLayerNameUtil({name:artLayer.name});
             if (_layerName == layerName) {
-                _errorMsgDuplicate += "	レイヤー :  " + name + "/" + artLayer.name + "\n\n";
+                _errorMsgDuplicate += "	图层 :  " + name + "/" + artLayer.name + "\n\n";
             }
             _layerName += layerName + "@";
         }
-        // レイヤーセット
+        // 图层组
         var length = item.layerSets.length;
         for (var i = 0; i < length; i++) {
             var layerSet = item.layerSets[ i ];
             var layerName = getLayerNameUtil({name:layerSet.name});
             if (_layerName == layerName) {
-                _errorMsgDuplicate += "	レイヤーセット : " + name + "/" + layerSet.name + "\n\n";
+                _errorMsgDuplicate += "	图层组 : " + name + "/" + layerSet.name + "\n\n";
             }
             _layerName += layerName + "@";
-            // 再帰
+            // 递归
             _checkDuplicate({
                 item:layerSet,
                 name:name + "/" + layerSet.name
@@ -515,28 +516,28 @@ var ErrorChecker = function () {
         }
     }
 
-    // IDチェック
+    // ID检测
     function _checkName(e) {
         var item = e.item;
         var name = e.name;
-        // レイヤー
+        // 图层
         var length = item.artLayers.length;
         for (var i = 0; i < length; i++) {
             var artLayer = item.artLayers[ i ];
             var layerName = getLayerNameUtil({name:artLayer.name});
             if (layerName.match(/[^0-9A-Za-z_.:-]+/) != null) {
-                _errorMsgName += "	レイヤー :  " + name + "/" + artLayer.name + "\n\n";
+                _errorMsgName += "	图层 :  " + name + "/" + artLayer.name + "\n\n";
             }
         }
-        // レイヤーセット
+        // 图层组
         var length = item.layerSets.length;
         for (var i = 0; i < length; i++) {
             var layerSet = item.layerSets[ i ];
             var layerName = getLayerNameUtil({name:layerSet.name});
             if (layerName.match(/[^0-9A-Za-z_.:-]+/) != null) {
-                _errorMsgName += "	レイヤーセット : " + name + "/" + layerSet.name + "\n\n";
+                _errorMsgName += "	图层组 : " + name + "/" + layerSet.name + "\n\n";
             }
-            // 再帰
+            // 递归
             _checkName({
                 item:layerSet,
                 name:name + "/" + layerSet.name
@@ -544,13 +545,13 @@ var ErrorChecker = function () {
         }
     }
 
-    // 表示要素チェック
+    // 可见像素检测
     function _checkExist(e) {
         var item = e.item;
         var name = e.name;
         var documentHeight = activeDocument.height.value;
         var documentWidth = activeDocument.width.value;
-        // レイヤー
+        // 图层
         var length = item.artLayers.length;
         for (var i = 0; i < length; i++) {
             var artLayer = item.artLayers[ i ];
@@ -559,18 +560,19 @@ var ErrorChecker = function () {
             var x2 = parseInt(artLayer.bounds[2]);
             var y2 = parseInt(artLayer.bounds[3]);
             if (( x2 - x1 ) <= 0 || ( y2 - y1 ) <= 0 || x2 <= 0 || y2 <= 0 || documentWidth <= x1 || documentHeight <= y1) {
-                _errorMsgExist += "	レイヤー :  " + name + "/" + artLayer.name + "\n\n";
+                // 在显示范围内存在无像素的图层及图层组。
+                _errorMsgExist += "	图层 :  " + name + "/" + artLayer.name + "\n\n";
             }
         }
-        // レイヤーセット
+        // 图层组
         var length = item.layerSets.length;
         for (var i = 0; i < length; i++) {
             var layerSet = item.layerSets[ i ];
-            // 表示要素チェック
+            // 可见像素检测
             if (layerSet.artLayers.length <= 0 && layerSet.layerSets.length <= 0) {
-                _errorMsgExist += "	レイヤーセット : " + name + "/" + layerSet.name + "\n\n";
+                _errorMsgExist += "	图层组 : " + name + "/" + layerSet.name + "\n\n";
             }
-            // 再帰
+            // 递归
             _checkExist({
                 item:layerSet,
                 name:name + "/" + layerSet.name
@@ -581,17 +583,17 @@ var ErrorChecker = function () {
 };
 
 //
-// ----- 画像出力
+// ----- 图片输出
 //
 var ImageExporter = function () {
 
-    // 初期化
+    // 初始化
     this.init = function () {
     };
 
-    // 出力
+    // 输出
     this.export = function (e) {
-        // 画像フォルダ作成
+        // 图片文件夹
         createDirectoryUtil({path:dialogManager.getImageFolderPath()});
         _hideLayers({
             item:activeDocument
@@ -604,63 +606,63 @@ var ImageExporter = function () {
         });
     };
 
-    // レイヤー非表示
+    // 图层非表示
     function _hideLayers(e) {
         var item = e.item;
-        // レイヤー
+        // 图层
         var length = item.artLayers.length;
         for (var i = 0; i < length; i++) {
             var artLayer = item.artLayers[ i ];
             artLayer.visible = false;
         }
-        // レイヤーセット
+        // 图层组
         var length = item.layerSets.length;
         for (var i = 0; i < length; i++) {
             var layerSet = item.layerSets[ i ];
-            // 再帰
+            // 递归
             _hideLayers({
                 item:layerSet
             });
         }
     }
 
-    // レイヤー表示
+    // 图层表示
     function _showLayers(e) {
         var item = e.item;
-        // レイヤー
+        // 图层
         var length = item.artLayers.length;
         for (var i = 0; i < length; i++) {
             var artLayer = item.artLayers[ i ];
             artLayer.visible = true;
         }
-        // レイヤーセット
+        // 图层组
         var length = item.layerSets.length;
         for (var i = 0; i < length; i++) {
             var layerSet = item.layerSets[ i ];
-            // 再帰
+            // 递归
             _showLayers({
                 item:layerSet
             });
         }
     }
 
-    // 出力
+    // 输出
     function _export(e) {
         var item = e.item;
-        // レイヤー
+        // 图层
         var length = item.artLayers.length;
         for (var i = 0; i < length; i++) {
             var artLayer = item.artLayers[ i ];
             if (artLayer.kind == LayerKind.NORMAL) {
                 // 表示
                 artLayer.visible = true;
-                // マスクが存在するか
+                // 蒙板存在判断
                 var hasMask = false;
                 if (hasChannelMaskByName(artLayer.name) || hasVectorMaskByName(artLayer.name)) {
                     hasMask = true;
                 }
                 if (hasMask) {
-                    // レイヤーをアクティブにする
+                    // 图层をアクティブにする
                     activeDocument.activeLayer = artLayer;
                     // マスクを選択
                     var idslct = charIDToTypeID( "slct" );
@@ -692,7 +694,7 @@ var ImageExporter = function () {
                     ref51.putEnumerated( idChnl, idOrdn, idTrgt );
                     desc79.putReference( idT, ref51 );
                     executeAction( idsetd, desc79, DialogModes.NO );
-                    // 選択範囲を抽出
+                    // 選択範囲を提取
                     var arr = activeDocument.selection.bounds;
                     var x1 = arr[0];
                     var y1 = arr[1];
@@ -704,7 +706,7 @@ var ImageExporter = function () {
                     var optionObj = new PNGSaveOptions();
                     optionObj.interlaced = false;
                     activeDocument.saveAs(fileObj, optionObj, true, Extension.LOWERCASE);
-                    // 開く
+                    // 打开
                     open(new File(imageFilePath));
                     // 座標を指定して選択する
                     selReg = [[x1, y1], [x1, y2], [x2, y2], [x2, y1]];
@@ -735,7 +737,7 @@ var ImageExporter = function () {
                 if (!color) {
                     color = dialogManager.getOtherBgColor();
                 }
-                // マットカラー
+                // 颜色蒙板
                 optionObj.matteColor = new RGBColor();
                 optionObj.matteColor.hexValue = color;
                 switch (getFileInfoFromFileNameUtil({name:artLayer.name}).type) {
@@ -768,7 +770,7 @@ var ImageExporter = function () {
                 var fileObj = new File(imageFilePath);
                 activeDocument.exportDocument(fileObj, ExportType.SAVEFORWEB, optionObj);
                 activeDocument.close(SaveOptions.DONOTSAVECHANGES);
-                // 不要ファイルを削除
+                // 不要文件を削除
                 var imageFilePath = getPathInfoImagesUtil().folderPathFull + "/" + "_" + getLayerNameUtil({name:artLayer.name}) + ".png";
                 var fileObj = new File(imageFilePath);
                 fileObj.remove();
@@ -776,11 +778,11 @@ var ImageExporter = function () {
                 artLayer.visible = false;
             }
         }
-        // レイヤーセット
+        // 图层组
         var length = item.layerSets.length;
         for (var i = 0; i < length; i++) {
             var layerSet = item.layerSets[ i ];
-            // 再帰
+            // 递归
             _export({
                 item:layerSet
             });
@@ -790,18 +792,18 @@ var ImageExporter = function () {
 };
 
 //
-// ----- 情報抽出
+// ----- 信息提取
 //
 var InfoManager = function () {
 
     var _layerInfoArr;
 
-    // 初期化
+    // 初始化
     this.init = function () {
         _layerInfoArr = [];
     };
 
-    // 抽出
+    // 提取
     this.extract = function (e) {
         _extract({
             item:activeDocument,
@@ -811,12 +813,12 @@ var InfoManager = function () {
         });
     };
 
-    // レイヤー情報取得
+    // 图层信息取得
     this.getLayerInfo = function () {
         return _layerInfoArr;
     };
 
-    // 抽出
+    // 提取
     function _extract(e) {
         var item = e.item;
         var infoArr = e.infoArr;
@@ -830,7 +832,7 @@ var InfoManager = function () {
             var layerName = getLayerNameUtil({name:layer.name});
             if (layer.kind == LayerKind.NORMAL) {
                 if (String(layer.name).charAt(0) == OPTION_KEY_BGIMAGE) {
-                    // 背景レイヤー
+                    // 背景图层
                     layoutInfoObj = _getLayoutInfo({item:layer});
                     totalInfoObj = {
                         type:TYPE_KEY_BG,
@@ -846,7 +848,7 @@ var InfoManager = function () {
                     };
                     infoArr.push(totalInfoObj);
                 } else {
-                    // 通常レイヤー
+                    // 通常图层
                     layoutInfoObj = _getLayoutInfo({item:layer});
                     totalInfoObj = {
                         type:TYPE_KEY_NORMAL,
@@ -863,7 +865,7 @@ var InfoManager = function () {
                     infoArr.push(totalInfoObj);
                 }
             } else if (layer.kind == LayerKind.TEXT) {
-                // テキストレイヤー
+                // 文本图层
                 layoutInfoObj = _getLayoutInfo({item:layer});
                 var size = null;
                 var align = null;
@@ -907,10 +909,12 @@ var InfoManager = function () {
                     }
                 } catch(e) {
                 }
+                var lineHeightTop = (lineHeight-parseInt(size))/2;
+                if(!(lineHeightTop>0)) lineHeightTop = 0;
                 totalInfoObj = {
                     type:TYPE_KEY_TEXT,
                     name:layerName,
-                    top:layoutInfoObj.top - top - (lineHeight-parseInt(size))/2,
+                    top:layoutInfoObj.top - top - lineHeightTop,
                     left:layoutInfoObj.left - left,
                     width: 'auto',
                     height:lineHeight,
@@ -929,7 +933,7 @@ var InfoManager = function () {
                 };
                 infoArr.push(totalInfoObj);
             } else if (layer.kind == undefined) {
-                // レイヤーセット
+                // 图层组
                 layoutInfoObj = _getLayoutInfo({item:layer});
                 totalInfoObj = {
                     type:TYPE_KEY_GROUP,
@@ -945,7 +949,7 @@ var InfoManager = function () {
                 };
                 infoArr.push(totalInfoObj);
                 infoArr[layerName] = [];
-                // 再帰
+                // 递归
                 _extract({
                     item:layer,
                     infoArr:infoArr[layerName],
@@ -956,12 +960,12 @@ var InfoManager = function () {
         }
     }
 
-    // レイアウト情報を取得
+    // 格式信息を取得
     function _getLayoutInfo(e) {
         var item = e.item;
-        // マスクが存在するかどうか
+        // 蒙板存在判断
         if (hasChannelMaskByName(item.name) || hasVectorMaskByName(item.name)) {
-            // レイヤーをアクティブにする
+            // 图层をアクティブにする
             activeDocument.activeLayer = item;
             // マスクを選択
             var idslct = charIDToTypeID( "slct" );
@@ -993,7 +997,7 @@ var InfoManager = function () {
             ref51.putEnumerated( idChnl, idOrdn, idTrgt );
             desc79.putReference( idT, ref51 );
             executeAction( idsetd, desc79, DialogModes.NO );
-            // 選択範囲を抽出
+            // 選択範囲を提取
             var arr = activeDocument.selection.bounds;
             var x1 = parseInt(arr[0]);
             var y1 = parseInt(arr[1]);
@@ -1028,7 +1032,7 @@ var InfoManager = function () {
         for (var i = 0; i < length; i++) {
             alert(arr[i].name);
             if (arr[i].type == TYPE_KEY_GROUP) {
-                // 再帰処理
+                // 递归处理
                 _traceInfoArr({arr:arr[arr[i].name]});
             }
         }
@@ -1037,22 +1041,22 @@ var InfoManager = function () {
 };
 
 //
-// ----- HTML出力
+// ----- HTML输出
 //
 var HtmlExporter = function () {
 
     var _htmlTxt;
 
-    // 初期化
+    // 初始化
     this.init = function () {
         _htmlTxt = "";
     };
 
-    // 出力
+    // 输出
     this.export = function (e) {
-        // フォルダ作成
+        // 文件夹
         createDirectoryUtil({path:dialogManager.getHtmlFolderPath()});
-        // ファイル開く
+        // 文件打开
         var fileObj = new File(getPathInfoHtmlUtil().fullPath);
         fileObj.open("w");
         switch (dialogManager.getHtmlDoctype()) {
@@ -1074,7 +1078,7 @@ var HtmlExporter = function () {
                 break;
         }
         fileObj.encoding = dialogManager.getEncodeInfo().system;
-        // HTMLテキスト作成（固定部分）
+        // HTML文本创建（固定部分）
         switch (dialogManager.getHtmlDoctype()) {
             case HTML_KEY_HTML4:
                 _htmlTxt += INDENT_VALUE + "<head>\n";
@@ -1145,19 +1149,19 @@ var HtmlExporter = function () {
         } else {
             _htmlTxt += INDENT_VALUE + "body\n";
         }
-        // HTMLテキスト作成（可変部分）
+        // HTML文本创建（可変部分）
         var infoArr = infoManager.getLayerInfo();
         _htmlTxt += _export({
             arr:infoArr,
             text:"",
             depth:0
         });
-        // HTMLテキスト作成（固定部分）
+        // HTML文本创建（固定部分）
         if (dialogManager.getHtmlDoctype() != HTML_KEY_JADE) {
             _htmlTxt += INDENT_VALUE + "</body>\n";
             _htmlTxt += "</html>\n";
         }
-        // ファイル書き込み
+        // 文件写
         fileObj.write(_htmlTxt);
         fileObj.close();
     };
@@ -1173,9 +1177,9 @@ var HtmlExporter = function () {
         }
         var length = arr.length;
         for (var i = 0; i < length; i++) {
-            // HTMLテキスト作成（可変部分）
+            // HTML文本创建（可変部分）
             switch (arr[i].type) {
-                // 通常レイヤー
+                // 通常图层
                 case TYPE_KEY_NORMAL:
                     switch (dialogManager.getHtmlDoctype()) {
                         case HTML_KEY_HTML4:
@@ -1193,7 +1197,7 @@ var HtmlExporter = function () {
                             break;
                     }
                     break;
-                // テキストレイヤー
+                // 文本图层
                 case TYPE_KEY_TEXT:
                     switch (dialogManager.getHtmlDoctype()) {
                         case HTML_KEY_HTML4:
@@ -1210,11 +1214,11 @@ var HtmlExporter = function () {
                             break;
                     }
                     break;
-                // レイヤーセット
+                // 图层组
                 case TYPE_KEY_GROUP:
                     if (dialogManager.getHtmlDoctype() != HTML_KEY_JADE) {
                         boxText = tab + "<div id=\"" + arr[i].name + "\">\n";
-                        // 再帰処理
+                        // 递归处理
                         text += _export({
                             arr:arr[arr[i].name],
                             text:boxText,
@@ -1224,7 +1228,7 @@ var HtmlExporter = function () {
                         text += tab + "</div>\n";
                     } else {
                         boxText = tab + "div#" + arr[i].name + "\n";
-                        // 再帰処理
+                        // 递归处理
                         text += _export({
                             arr:arr[arr[i].name],
                             text:boxText,
@@ -1240,28 +1244,28 @@ var HtmlExporter = function () {
 };
 
 //
-// ----- CSS出力
+// ----- CSS输出
 //
 var CssExporter = function () {
 
     var _cssTxt;
     var _depth;
 
-    // 初期化
+    // 初始化
     this.init = function () {
         _cssTxt = "";
         _depth = 0;
     };
 
-    // 出力
+    // 输出
     this.export = function (e) {
-        // フォルダ作成
+        // 文件夹
         createDirectoryUtil({path:dialogManager.getCssFolderPath()});
-        // ファイル開く
+        // 文件打开
         var fileObj = new File(getPathInfoCssUtil().fullPath);
         fileObj.open("w");
         fileObj.encoding = dialogManager.getEncodeInfo().system;
-        // CSSテキスト作成（固定部分）
+        // CSS文本创建（固定部分）
         _cssTxt += "@charset \"" + dialogManager.getEncodeInfo().charset + "\";\n";
         _cssTxt += "\n";
         _cssTxt += "body {\n";
@@ -1290,23 +1294,23 @@ var CssExporter = function () {
             _cssTxt += "}\n";
             _cssTxt += "\n";
         }
-        // CSSテキスト作成（可変部分）
+        // CSS文本创建（可変部分）
         _export({arr:infoArr});
-        // CSSテキスト作成（固定部分）
+        // CSS文本创建（固定部分）
         _cssTxt += "\n";
-        // ファイル書き込み
+        // 文件写
         fileObj.write(_cssTxt);
         fileObj.close();
     };
 
     function _export(e) {
         var arr = e.arr;
-        // レイヤーCSS
+        // 图层CSS
         var length = arr.length;
         for (var i = 0; i < length; i++) {
             var item = arr[i];
             var index01 = (99 - i) * 100 + 99;
-            // CSSテキスト作成（可変部分）
+            // CSS文本创建（可変部分）
             if (item.type == TYPE_KEY_NORMAL || item.type == TYPE_KEY_TEXT || item.type == TYPE_KEY_GROUP) {
                 _cssTxt += "#" + item.name + " {\n";
                 if (dialogManager.getIsAbsolute()) {
@@ -1320,10 +1324,10 @@ var CssExporter = function () {
                 }
                 // ボックス
                 if (item.type == TYPE_KEY_GROUP) {
-                    // サイズ
+                    // 尺寸
                     _cssTxt += "\twidth: " + item.width + "px;\n";
                     _cssTxt += "\theight: " + item.height + "px;\n";
-                    // 背景情報取得
+                    // 背景信息取得
                     var _bgTxt = "";
                     var arr2 = arr[item.name];
                     var length2 = arr2.length;
@@ -1343,12 +1347,12 @@ var CssExporter = function () {
                     }
                     _cssTxt += _bgTxt;
                 }
-                // テキスト
+                // 文本
                 if (item.type == TYPE_KEY_TEXT) {
-                    // サイズ
+                    // 尺寸
                     if(item.width>0)_cssTxt += "\twidth: " + item.width + "px;\n";
                     if(item.height>0)_cssTxt += "\theight: " + item.height + "px;\n";
-                    // フォント情報
+                    // 字体信息
                     var fontSize = item.text.size;
                     _cssTxt += "\tfont-size: " + fontSize.replace(/ /, "") + ";\n";
                     var align = null;
@@ -1374,7 +1378,7 @@ var CssExporter = function () {
                 _cssTxt += "\n";
             }
             if (item.type == TYPE_KEY_GROUP) {
-                // 再帰処理
+                // 递归处理
                 _export({arr:arr[item.name]});
             }
         }
@@ -1387,21 +1391,21 @@ var CssExporter = function () {
 //
 
 // 定数
-var OPTION_KEY_BGIMAGE = "*"; // オプションキー（背景レイヤー）
-var OPTION_KEY_ALT = "@"; // オプションキー（ALTタグ）
-var OPTION_KEY_COLOR = "#"; // オプションキー（背景色）
-var INDENT_VALUE = "    "; // Jadeのインデント使用文字
-var TYPE_KEY_BG = "bg"; // タイプキー（背景レイヤー）
-var TYPE_KEY_NORMAL = "normal"; // タイプキー（通常レイヤー）
-var TYPE_KEY_TEXT = "text"; // タイプキー（テキストレイヤー）
-var TYPE_KEY_GROUP = "group"; // タイプキー（レイヤーセット）
-var FILE_KEY_PNG = "png"; // ファイルキー（PNG）
-var FILE_KEY_JPG = "jpg"; // ファイルキー（JPEG）
-var FILE_KEY_GIF = "gif"; // ファイルキー（GIF）
-var HTML_KEY_HTML5 = "html5"; // HTMLキー（html5）
-var HTML_KEY_XHTML = "xhtml"; // HTMLキー（xhtml）
-var HTML_KEY_HTML4 = "html4"; // HTMLキー（html4.01）
-var HTML_KEY_JADE = "jade"; // HTMLキー（jade）
+var OPTION_KEY_BGIMAGE = "*"; // 选项键（背景图层）
+var OPTION_KEY_ALT = "@"; // 选项键（ALTタグ）
+var OPTION_KEY_COLOR = "#"; // 选项键（背景色）
+var INDENT_VALUE = "    "; // Jade缩进使用文字
+var TYPE_KEY_BG = "bg"; // 键盘键（背景图层）
+var TYPE_KEY_NORMAL = "normal"; // 键盘键（通常图层）
+var TYPE_KEY_TEXT = "text"; // 键盘键（文本图层）
+var TYPE_KEY_GROUP = "group"; // 键盘键（图层组）
+var FILE_KEY_PNG = "png"; // 文件键（PNG）
+var FILE_KEY_JPG = "jpg"; // 文件键（JPEG）
+var FILE_KEY_GIF = "gif"; // 文件键（GIF）
+var HTML_KEY_HTML5 = "html5"; // HTML键（html5）
+var HTML_KEY_XHTML = "xhtml"; // HTML键（xhtml）
+var HTML_KEY_HTML4 = "html4"; // HTML键（html4.01）
+var HTML_KEY_JADE = "jade"; // HTML键（jade）
 // インスタンス
 var dialogManager = new DialogManager();
 var errorChecker = new ErrorChecker();
@@ -1409,12 +1413,12 @@ var imageExporter = new ImageExporter();
 var infoManager = new InfoManager();
 var htmlExporter = new HtmlExporter();
 var cssExporter = new CssExporter();
-// プロパティ
-var exportRoot; // 出力先ルートディレクトリ
+// 属性
+var exportRoot; // 输出根目录
 
-// 初期化
+// 初始化
 initEvent();
-// ダイアログ開く
+// 对话框打开
 openDialogEvent();
 
 //
@@ -1422,12 +1426,12 @@ openDialogEvent();
 //
 
 //
-// ----- 初期化
+// ----- 初始化
 //
 function initEvent(e) {
-    // プロパティ初期化
+    // 属性初始化
     exportRoot = activeDocument.path + "/" + String(activeDocument.name).substring(0, String(activeDocument.name).length - 4);
-    // インスタンス初期化
+    // 实例初始化
     dialogManager.init();
     errorChecker.init();
     imageExporter.init();
@@ -1437,18 +1441,18 @@ function initEvent(e) {
 }
 
 //
-// ----- ダイアログ開く
+// ----- 对话框打开
 //
 function openDialogEvent(e) {
-    // ダイアログ開く
+    // 对话框打开
     dialogManager.open();
 }
 
 //
-// ----- エラーチェック
+// ----- 错误检测
 //
 function checkErrorEvent(e) {
-    // エラーチェック
+    // 错误检测
     errorChecker.check();
 }
 
@@ -1456,34 +1460,34 @@ function checkErrorEvent(e) {
 // ----- 書き出し開始
 //
 function startExportEvent(e) {
-    // ルートフォルダ作成
+    // ルート文件夹
     var folderObj = new Folder(exportRoot);
     folderObj.create();
     if (dialogManager.getIsExportImages()) {
-        // 画像出力
+        // 图片输出
         imageExporter.export();
     }
     if (dialogManager.getIsExportHtml() || dialogManager.getIsExportCss()) {
-        // 情報抽出
+        // 信息提取
         infoManager.extract();
         if (dialogManager.getIsExportHtml()) {
-            // HTML出力
+            // HTML输出
             htmlExporter.export();
         }
         if (dialogManager.getIsExportCss()) {
-            // CSS出力
+            // CSS输出
             cssExporter.export();
         }
     }
-    // 書き出し終了イベント
+    // 导出完成
     completeExportEvent();
 }
 
 //
-// ----- 書き出し終了
+// ----- 导出完成
 //
 function completeExportEvent(e) {
-    alert("終了しました。");
+    alert("导出完成");
 }
 
 //
@@ -1491,7 +1495,7 @@ function completeExportEvent(e) {
 //
 
 //
-// ----- 画像パス情報取得
+// ----- 图片定位信息取得
 //
 function getPathInfoImagesUtil(e) {
     var folderPathFull = "";
@@ -1514,7 +1518,7 @@ function getPathInfoImagesUtil(e) {
 }
 
 //
-// ----- HTMLパス情報取得
+// ----- HTML定位信息取得
 //
 function getPathInfoHtmlUtil(e) {
     var fullPath = "";
@@ -1547,7 +1551,7 @@ function getPathInfoHtmlUtil(e) {
 }
 
 //
-// ----- CSSパス情報取得
+// ----- CSS定位信息取得
 //
 function getPathInfoCssUtil(e) {
     var fullPath = "";
@@ -1574,7 +1578,7 @@ function getPathInfoCssUtil(e) {
 }
 
 //
-// ----- レイヤー名取得
+// ----- 图层名取得
 //
 function getLayerNameUtil(e) {
     var str = (e) ? e.name : "";
@@ -1633,7 +1637,7 @@ function getLayerColorUtil(e) {
 }
 
 //
-// ----- ファイルタイプから拡張子取得
+// ----- 文件类型扩展名取得
 //
 function getExtFromFileTypeUtil(e) {
     var str = (e || e.file) ? e.file : dialogManager.getDefaultFileType();
@@ -1651,7 +1655,7 @@ function getExtFromFileTypeUtil(e) {
 }
 
 //
-// ----- ファイル名から拡張子取得
+// ----- 文件名扩展名取得
 //
 function getFileInfoFromFileNameUtil(e) {
     var str = String(e.name);
@@ -1679,10 +1683,10 @@ function getFileInfoFromFileNameUtil(e) {
 }
 
 //
-// ----- ディレクトリ作成
+// ----- 目录创建
 //
 function createDirectoryUtil(e) {
-    // 画像フォルダ作成
+    // 图片文件夹
     var path = e.path;
     var depth = 0;
     var directory = exportRoot;
@@ -1702,7 +1706,7 @@ function createDirectoryUtil(e) {
 }
 
 //
-// ----- レイヤーにチャンネルマスクが存在するかどうか
+// ----- 图层通道蒙板存在判断
 //
 function hasChannelMaskByName(name){
     var ref = new ActionReference();
@@ -1711,7 +1715,7 @@ function hasChannelMaskByName(name){
 }
 
 //
-// ----- レイヤーにベクターマスクが存在するかどうか
+// ----- 图层矢量蒙板存在判断
 //
 function hasVectorMaskByName(name){
     var ref = new ActionReference();
@@ -1720,7 +1724,7 @@ function hasVectorMaskByName(name){
 }
 
 //
-// ----- HexColorを取り出す
+// ----- 获取 HexColor
 //
 function getHexColorTextUtil(value) {
     var str = String(value).replace("#", "");

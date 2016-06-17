@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "noLib": true,
+        "noImplicitAny": false,
+        "sourceMap": false
+    },
+    "files": [
+        "jsx/jsx.lib.d.ts",
+        "typings/index.d.ts",
+        "jsx/index.d.ts",
+        "src/rename/rename.ts",
+        "src/rename/color.ts",
+        "src/rename/group.ts",
+        "src/exporter/CssExporter.ts",
+        "src/exporter/DialogManager.ts",
+        "src/exporter/ErrorChecker.ts",
+        "src/exporter/HtmlExporter.ts",
+        "src/exporter/ImageExporter.ts",
+        "src/exporter/InfoManager.ts",
+        "src/exporter/Util.ts",
+        "src/exporter/zExport.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "es5",
+        "sample"
+    ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "psdexporter-jsx",
+  "version": "1.0.0",
+  "description": "## 主な機能",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp exporter && cp dist/exporter.jsx /Applications/Adobe\\ Photoshop\\ CC\\ 2015/Presets/Scripts/一键切图.jsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guissy/psdexporter-jsx.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guissy/psdexporter-jsx/issues"
+  },
+  "homepage": "https://github.com/guissy/psdexporter-jsx#readme",
+  "devDependencies": {
+    "gulp-tsc": "^1.1.5"
+  },
+  "dependencies": {
+    "jsx": "file:jsx",
+    "gulp": "latest",
+    "gulp-tsc": "latest",
+    "gulp-concat": "latest"
+  }
+}

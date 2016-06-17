@@ -1,0 +1,6 @@
+{
+  "name": "psdexporter-jsx",
+  "globalDependencies": {
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#edb64e4a35896510ce02b93c0bca5ec3878db738"
+  }
+}
